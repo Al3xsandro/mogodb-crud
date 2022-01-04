@@ -2,45 +2,55 @@ import { ObjectId } from "mongodb";
 import { client } from "../config/connection";
 
 client.connect();
-const collection = client.db().collection<IUserDocument>('usersCollection');
+const users = client.db().collection<IUserDocument>('usersCollection');
 
 interface IUserDocument {
-    id?: string;
-    email?: string,
-    password?: string
+    email?: string;
+    password?: string;
+    created_at?: Date;
 }
 
 async function createUser({ email, password }: IUserDocument): Promise<void> {
-    await collection.insertOne({
+    await users.insertOne({
         email,
-        password
-    });
+        password,
+        created_at: new Date()
+    })
 }
 
-async function findUser({ email }: IUserDocument): Promise<IUserDocument | null> {
-    const user = await collection.findOne({ email });
+async function findUserById(id: string): Promise<IUserDocument | null> {
+    const user = await users.findOne({ _id: new ObjectId(id) });
 
     return user;
 }
 
-async function deleteUser(id: string): Promise<void> {
-    await collection.deleteOne({ _id: new ObjectId(id) });
-}
+async function deleteUserById(id: string): Promise<void> {
+    await users.deleteOne({ _id: new ObjectId(id) });
+};
 
 async function findAllUsers(): Promise<IUserDocument[] | null> {
-    const users = await collection.find({}).limit(10).toArray()
+    const result = await users.find({}).limit(10).toArray()
 
-    return users;
-}
+    return result;
+};
 
 async function createManyUsers(data: IUserDocument[]): Promise<void> {
-    await collection.insertMany(data);
-}
+    await users.insertMany(data);
+};
 
-export { 
+async function updateUserByEmail(id: string, new_email: string) {
+    await users.updateOne({ _id: new ObjectId(id) }, {
+        $set: {
+            email: new_email
+        }
+    });
+};
+
+export {
     createUser,
-    findUser,
-    deleteUser,
+    findUserById,
+    deleteUserById,
     findAllUsers,
     createManyUsers,
+    updateUserByEmail
 }

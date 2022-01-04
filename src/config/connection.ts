@@ -14,4 +14,4 @@ createConnection()
     .then(() => console.log("Connected +"))
     .catch((err: unknown) => console.error(`An error was occurred: ${err}`))
 
-export { client };
+export { client }
