@@ -1,19 +1,11 @@
 import { ObjectId } from "mongodb";
 import { client } from "../config/connection";
 
-interface Product {
-    id: string;
-    name: string;
-    price: number;
-    quantity: number;
-}
-
 interface IUserDocument {
     name: string;
     age: number;
     email: string;
     password: string;
-    products: Product[];
     created_at?: Date;
 }
 
@@ -25,14 +17,12 @@ async function create({
     age,
     email,
     password,
-    products
 }: IUserDocument): Promise<void> {
     await users.insertOne({
         name,
         age,
         email,
         password,
-        products,
         created_at: new Date()
     });
 };
