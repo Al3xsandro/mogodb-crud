@@ -7,7 +7,8 @@ async function createConnection() {
     await client.connect()
 
     const database = client.db('testDatabase');
-    database.collection("usersCollection")
+    database.collection("usersCollection");
+    database.collection("productsCollection");
 }
 
 createConnection()
