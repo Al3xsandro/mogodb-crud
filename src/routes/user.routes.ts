@@ -3,17 +3,17 @@ import {
 } from "express";
 
 import { 
-    create,
+    createUser,
     createMany,
     deleteUser,
     allUsers,
     updateUserEmail,
-    findUser,
+    findUser
  } from "../controllers/user.controller";
 
 const usersRoutes = Router();
 
-usersRoutes.post('/user', create);
+usersRoutes.post('/user', createUser);
 
 usersRoutes.post('/users', createMany)
 
@@ -23,6 +23,6 @@ usersRoutes.get('/users', allUsers);
 
 usersRoutes.delete('/user/:id', deleteUser);
 
-usersRoutes.patch('/user/:email', updateUserEmail)
+usersRoutes.patch('/user/:id', updateUserEmail)
 
 export { usersRoutes };
