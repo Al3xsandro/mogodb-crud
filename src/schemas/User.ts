@@ -1,27 +1,56 @@
 import { ObjectId } from "mongodb";
 import { client } from "../config/connection";
 
-client.connect();
-const users = client.db().collection<IUserDocument>('usersCollection');
+interface Product {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
 
 interface IUserDocument {
-    email?: string;
-    password?: string;
+    name: string;
+    age: number;
+    email: string;
+    password: string;
+    products: Product[];
     created_at?: Date;
 }
 
-async function createUser({ email, password }: IUserDocument): Promise<void> {
+client.connect();
+const users = client.db().collection<IUserDocument>('usersCollection');
+
+async function create({ 
+    name,
+    age,
+    email,
+    password,
+    products
+}: IUserDocument): Promise<void> {
     await users.insertOne({
+        name,
+        age,
         email,
         password,
+        products,
         created_at: new Date()
-    })
-}
+    });
+};
 
 async function findUserById(id: string): Promise<IUserDocument | null> {
     const user = await users.findOne({ _id: new ObjectId(id) });
 
     return user;
+};
+
+async function findAllUsersByAge(age: number): Promise<IUserDocument[] | null> {
+    const result = await users.find(
+        {
+            age
+        }
+    ).toArray();
+
+    return result;
 }
 
 async function deleteUserById(id: string): Promise<void> {
@@ -29,7 +58,7 @@ async function deleteUserById(id: string): Promise<void> {
 };
 
 async function findAllUsers(): Promise<IUserDocument[] | null> {
-    const result = await users.find({}).limit(10).toArray()
+    const result = await users.find({}).limit(10).toArray();
 
     return result;
 };
@@ -38,7 +67,7 @@ async function createManyUsers(data: IUserDocument[]): Promise<void> {
     await users.insertMany(data);
 };
 
-async function updateUserByEmail(id: string, new_email: string) {
+async function updateUserByEmail(id: string, new_email: string): Promise<void> {
     await users.updateOne({ _id: new ObjectId(id) }, {
         $set: {
             email: new_email
@@ -47,10 +76,11 @@ async function updateUserByEmail(id: string, new_email: string) {
 };
 
 export {
-    createUser,
+    create,
     findUserById,
     deleteUserById,
     findAllUsers,
+    findAllUsersByAge,
     createManyUsers,
     updateUserByEmail
 }

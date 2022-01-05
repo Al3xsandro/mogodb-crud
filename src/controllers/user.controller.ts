@@ -1,19 +1,32 @@
 import { Request, Response } from "express";
 
 import { 
-    createUser,
+    create,
     findUserById,
     deleteUserById,
     findAllUsers,
     createManyUsers,
-    updateUserByEmail
+    updateUserByEmail,
+    findAllUsersByAge
 } from "../schemas/User";
 
-async function create(request: Request, response: Response) {
+async function createUser(request: Request, response: Response) {
     try {
-        const { email, password } = request.body;
+        const {
+            name,
+            age,
+            email,
+            password,
+            products
+        } = request.body;
 
-        const user = await createUser({ email, password });
+        const user = await create({
+            name,
+            age,
+            email,
+            password,
+            products
+        });
 
         return response.status(201).json(user);
     } catch (err) {
@@ -59,6 +72,14 @@ async function deleteUser(request: Request, response: Response) {
 
 async function allUsers(request: Request, response: Response) {
     try {
+        const { age } = request.query;
+
+        if (age) {
+            const usersByAge = await findAllUsersByAge(Number(age));
+            
+            return response.status(200).json(usersByAge);
+        }
+
         const users = await findAllUsers();
     
         return response.json(users);
@@ -69,19 +90,21 @@ async function allUsers(request: Request, response: Response) {
 
 async function updateUserEmail(request: Request, response: Response) {
     try {
-        const { email } = request.params;
-        const { user_id: id } = request.body;
+        const { id } = request.params;
+        const { email } = request.body;
 
         await updateUserByEmail(id, email);
 
-        return response.status(200).send();
+        return response.status(200).send({
+            message: "Successfully updated email"
+        });
     } catch (err) {
         return response.status(500).json(err);
     };
 };
 
 export { 
-    create,
+    createUser,
     createMany,
     findUser,
     deleteUser,
