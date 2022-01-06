@@ -1,0 +1,21 @@
+{
+  "name": "mongoserver",
+  "version": "1.0",
+  "main": "./dist/src/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^6.1.5",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.7",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  }
+}
