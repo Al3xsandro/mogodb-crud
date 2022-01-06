@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../shared/errors/AppError";
-import { ICreateCustomerDTO } from "../../dto/ICreateCustomerDTO";
+import { ICreateCustomerDTO } from "../../dtos/ICreateCustomerDTO";
 import { ICustomerRepository } from "../../repositories/ICustomerRepository";
 
 @injectable()

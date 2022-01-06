@@ -1,4 +1,4 @@
-import { ICreateCustomerDTO } from "../dto/ICreateCustomerDTO";
+import { ICreateCustomerDTO } from "../dtos/ICreateCustomerDTO";
 import { ICustomerDocument } from "../infra/mongoose/schemas/Customer";
 
 interface ICustomerRepository {

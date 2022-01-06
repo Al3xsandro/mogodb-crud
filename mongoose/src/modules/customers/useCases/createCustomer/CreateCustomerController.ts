@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateCustomerUseCase } from "./CreateCustomerUseCase";
 
-import { ICreateCustomerDTO } from "../../dto/ICreateCustomerDTO";
+import { ICreateCustomerDTO } from "../../dtos/ICreateCustomerDTO";
 
 class CreateCustomerController {
     async handle(request: Request, response: Response): Promise<Response> {

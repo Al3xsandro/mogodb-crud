@@ -1,5 +1,5 @@
 import { AppError } from "../../../../../shared/errors/AppError";
-import { ICreateCustomerDTO } from "../../../dto/ICreateCustomerDTO";
+import { ICreateCustomerDTO } from "../../../dtos/ICreateCustomerDTO";
 import { ICustomerRepository } from "../../../repositories/ICustomerRepository";
 
 import { ICustomerDocument, customer } from "../schemas/Customer";
