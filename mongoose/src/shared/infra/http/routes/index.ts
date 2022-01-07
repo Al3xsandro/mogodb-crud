@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { customerRoutes } from "./customer.routes";
+import { customerRoutes } from "./customers.routes";
 
 const routes = Router();
 
-routes.use('/customer', customerRoutes);
+routes.use('/customers', customerRoutes);
 
 export default routes;
