@@ -10,7 +10,7 @@ class FindAllCustomersUseCase {
     ) {}
 
     async execute(): Promise<ICustomerDocument[]> {
-        const customers = await this.customerRepository.findAll();
+        const customers = await this.customerRepository.find();
 
         return customers;
     }

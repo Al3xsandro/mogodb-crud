@@ -1,4 +1,3 @@
-import { AppError } from "../../../../../shared/errors/AppError";
 import { ICreateCustomerDTO } from "../../../dtos/ICreateCustomerDTO";
 import { ICustomerRepository } from "../../../repositories/ICustomerRepository";
 
@@ -19,7 +18,7 @@ class CustomerRepository implements ICustomerRepository {
         });
     }
     
-    async findAll(): Promise<ICustomerDocument[]> {
+    async find(): Promise<ICustomerDocument[]> {
         const customers = await this.repository.find();
         return customers;
     }
