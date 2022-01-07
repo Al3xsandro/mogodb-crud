@@ -32,12 +32,8 @@ class CustomerRepository implements ICustomerRepository {
         return customer;
     }
     
-    async findById(id: string): Promise<ICustomerDocument> {
+    async findById(id: string): Promise<ICustomerDocument | null> {
         const customer = await this.repository.findById(id);
-        
-        if (!customer) {
-            throw new AppError('Customer does not exists');
-        }
 
         return customer;
     }
