@@ -32,7 +32,8 @@ class ProductRepository implements IProductRepository {
 
     async updateQuantity(id: string, quantity: number): Promise<void> {
         await this.repository.updateOne({
-            _id: id,
+            _id: id
+        }, {
             $set: {
                 quantity
             }
