@@ -42,7 +42,7 @@ class CreateOrderUseCase {
             };
 
             if(validProduct.quantity < productSentByUser.quantity) {
-                throw new AppError(`Insufficient quantity to reduce product id ${validProduct.id}`)
+                throw new AppError(`Insufficient quantity in product id ${validProduct.id}`)
             }
 
             const newQuantity = Number(validProduct.quantity - productSentByUser.quantity);
