@@ -1,6 +1,6 @@
 type Product = {
     id: string;
-    quantity: string;
+    quantity: number;
 }
 
 interface ICreateOrderDTO {
