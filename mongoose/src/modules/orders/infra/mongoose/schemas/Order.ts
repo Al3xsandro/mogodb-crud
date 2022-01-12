@@ -29,6 +29,9 @@ const orderSchema = new Schema(
             required: true,
         },
     },
+    {
+        timestamps: true,
+    },
 );
 
 const order = mongoose.model<IOrderDocument>('Order', orderSchema);
