@@ -5,6 +5,7 @@ interface IProductRepository {
     create({ name, price, quantity }: ICreateProductDTO): Promise<IProductDocument>;
     find(): Promise<IProductDocument[]>;
     findById(product_id: string): Promise<IProductDocument | null>;
+    findManyByIds(ids: string[]): Promise<IProductDocument[]>;
     updateQuantity(id: string, quantity: number): Promise<void>;
     findTotalProducts(): Promise<IProductDocument[]>;
 };

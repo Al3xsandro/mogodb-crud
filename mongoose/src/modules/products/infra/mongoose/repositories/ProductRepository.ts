@@ -30,6 +30,16 @@ class ProductRepository implements IProductRepository {
         return product;
     }
 
+    async findManyByIds(ids: string[]): Promise<IProductDocument[]> {
+        const products = await this.repository.find({
+            _id: {
+                $in: ids
+            }
+        });
+
+        return products;
+    };
+
     async updateQuantity(id: string, quantity: number): Promise<void> {
         await this.repository.updateOne({
             _id: id
