@@ -6,6 +6,7 @@
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts"
   },
   "dependencies": {
+    "csv-parse": "^5.0.4",
     "express": "^4.17.2",
     "express-async-errors": "^3.1.1",
     "mongoose": "^6.1.5",
