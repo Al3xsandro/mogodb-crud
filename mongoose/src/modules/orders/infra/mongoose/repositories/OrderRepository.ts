@@ -36,7 +36,7 @@ class OrderRepository implements IOrderRepository {
             }).skip(Number(page) + 10).limit(10);
 
             return ordersByPrice;
-        }
+        };
 
         if(date) {
             const ordersByDate = await this.repository.find({
@@ -44,7 +44,7 @@ class OrderRepository implements IOrderRepository {
             }).skip(Number(page) + 10).limit(10);
 
             return ordersByDate;
-        }
+        };
 
         if(product_id) {
             const ordersByProductId = await this.repository.find({
@@ -56,11 +56,11 @@ class OrderRepository implements IOrderRepository {
             }).skip(Number(page) + 10).limit(10);
 
             return ordersByProductId;
-        }
+        };
 
         const orders = await this.repository.find();
         return orders;
-    }
-}
+    };
+};
 
 export { OrderRepository };
