@@ -11,6 +11,7 @@
     "express-async-errors": "^3.1.1",
     "mongoose": "^6.1.5",
     "reflect-metadata": "^0.1.13",
+    "stripe": "^8.197.0",
     "tsyringe": "^4.6.0"
   },
   "devDependencies": {
