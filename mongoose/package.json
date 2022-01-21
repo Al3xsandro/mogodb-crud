@@ -6,6 +6,7 @@
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "csv-parse": "^5.0.4",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
@@ -16,6 +17,7 @@
     "tsyringe": "^4.6.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.7",
     "ts-node-dev": "^1.1.8",
