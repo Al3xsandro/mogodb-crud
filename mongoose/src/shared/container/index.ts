@@ -1,5 +1,7 @@
 import { container } from "tsyringe";
 
+import "./providers/index";
+
 import { ICustomerRepository } from "../../modules/customers/repositories/ICustomerRepository";
 import { CustomerRepository } from "../../modules/customers/infra/mongoose/repositories/CustomerRepository";
 
