@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { IStripeGateway } from "../../../../shared/container/providers/stripe/IStripe";
 import { ICreateProductDTO } from "../../dtos/ICreateProductDTO";
 import { IProductDocument } from "../../infra/mongoose/schemas/Product";
 import { IProductRepository } from "../../repositories/IProductRepository";
@@ -7,7 +8,9 @@ import { IProductRepository } from "../../repositories/IProductRepository";
 class CreateProductUseCase {
     constructor(
         @inject('ProductRepository')
-        private productRepository: IProductRepository
+        private productRepository: IProductRepository,
+        @inject('StripeProvider')
+        private stripeProvider: IStripeGateway
     ) {}
 
     async execute({
@@ -20,6 +23,12 @@ class CreateProductUseCase {
             price,
             quantity
         });
+
+        await this.stripeProvider.createProduct({
+            name,
+            price,
+            quantity
+        })
 
         return product;
     };

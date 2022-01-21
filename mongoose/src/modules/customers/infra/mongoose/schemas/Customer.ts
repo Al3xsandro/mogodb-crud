@@ -16,6 +16,11 @@ const customerSchema = new Schema(
             required: true,
             unique: true,
         },
+        stripeId: {
+            type: String,
+            required: true,
+            unique: true
+        },
         password: {
             type: String,
             required: true,

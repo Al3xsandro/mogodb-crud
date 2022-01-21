@@ -10,9 +10,10 @@ class CustomerRepository implements ICustomerRepository {
         this.repository = customer;
     }
 
-    async create({ email, password, telefone }: ICreateCustomerDTO): Promise<void> {
+    async create({ email, stripeId, password, telefone }: ICreateCustomerDTO): Promise<void> {
         await this.repository.create({
             email,
+            stripeId,
             password,
             telefone
         });
