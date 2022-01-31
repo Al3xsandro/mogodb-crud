@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IStripeGateway } from "../../../../shared/container/providers/stripe/IStripe";
+import { AppError } from "../../../../shared/errors/AppError";
 import { ICreateProductDTO } from "../../dtos/ICreateProductDTO";
 import { IProductDocument } from "../../infra/mongoose/schemas/Product";
 import { IProductRepository } from "../../repositories/IProductRepository";
@@ -18,17 +19,23 @@ class CreateProductUseCase {
         price,
         quantity
     }: ICreateProductDTO): Promise<IProductDocument> {
-        const product = await this.productRepository.create({
+        const stripeProduct = await this.stripeProvider.createProduct({
             name,
             price,
             quantity
         });
 
-        await this.stripeProvider.createProduct({
+        if(!stripeProduct) {
+            throw new AppError('An error was occurred');
+        };
+        
+        const product = await this.productRepository.create({
             name,
             price,
-            quantity
-        })
+            quantity,
+            stripe_product_id: String(stripeProduct.product),
+            stripe_price_id: stripeProduct.id,
+        });
 
         return product;
     };

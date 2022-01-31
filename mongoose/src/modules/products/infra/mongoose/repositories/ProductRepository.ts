@@ -9,11 +9,13 @@ class ProductRepository implements IProductRepository {
         this.repository = product;
     }
 
-    async create({ name, price, quantity }: ICreateProductDTO): Promise<IProductDocument> {
+    async create({ name, price, quantity, stripe_product_id, stripe_price_id }: ICreateProductDTO): Promise<IProductDocument> {
         const product = await this.repository.create({
             name,
             price,
-            quantity
+            quantity,
+            stripe_product_id,
+            stripe_price_id
         });
 
         return product;
