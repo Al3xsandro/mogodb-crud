@@ -5,13 +5,13 @@ import { BuyProductUseCase } from "./BuyProductUseCase";
 
 class BuyProductController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { customer_id, price_id, quantity }: ICreateCheckoutDTO = request.body;
+        const { customer_id, product_id, quantity }: ICreateCheckoutDTO = request.body;
 
         const buyProductsUseCase = container.resolve(BuyProductUseCase);
 
         const checkout_url = await buyProductsUseCase.execute({
             customer_id,
-            price_id,
+            product_id,
             quantity
         });
         

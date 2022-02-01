@@ -1,5 +1,8 @@
 import Stripe from "stripe";
+import { inject } from "tsyringe";
 import { ICreateCheckoutDTO } from "../../../../../modules/products/dtos/ICreateCheckoutDTO";
+import { IProductRepository } from "../../../../../modules/products/repositories/IProductRepository";
+import { AppError } from "../../../../errors/AppError";
 import { ICreateStripeProduct } from "../dtos/ICreateStripeProduct";
 
 import { IStripeGateway } from "../IStripe";
@@ -7,7 +10,10 @@ import { IStripeGateway } from "../IStripe";
 class StripeGateway implements IStripeGateway {
     private stripe: Stripe;
 
-    constructor() {
+    constructor(
+        @inject("ProductRepository")
+        private productRepository: IProductRepository,
+    ) {
         const privateKey = process.env.STRIPE_SECRET_KEY || '';
 
         this.stripe = new Stripe(privateKey, {
@@ -44,8 +50,14 @@ class StripeGateway implements IStripeGateway {
         return productPrice;
     };
 
-    async checkout({ customer_id, price_id, quantity }: ICreateCheckoutDTO): Promise<Stripe.Checkout.Session> {
-        const product_price = await this.stripe.prices.retrieve(price_id);
+    async checkout({ customer_id, product_id, quantity }: ICreateCheckoutDTO): Promise<Stripe.Checkout.Session> {
+        const product = await this.productRepository.findById(product_id);
+
+        if(!product?.stripe_price_id) {
+            throw new AppError('Product id does not exists');
+        };
+
+        const product_price = await this.stripe.prices.retrieve(product.stripe_price_id);
 
         const checkout = await this.stripe.checkout.sessions.create({
             payment_method_types: ['card'],

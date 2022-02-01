@@ -5,6 +5,8 @@ interface IProduct {
     name: string;
     price: number;
     quantity: number;
+    stripe_product_id?: string;
+    stripe_price_id?: string;
 }
 
 type IProductDocument = Document & IProduct;

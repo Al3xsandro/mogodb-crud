@@ -11,7 +11,7 @@ interface IStripeGateway {
     }: ICreateStripeProduct): Promise<Stripe.Price>;
     checkout({
         customer_id,
-        price_id,
+        product_id,
         quantity
     }: ICreateCheckoutDTO): Promise<Stripe.Checkout.Session>;
     webhook(): Promise<void>;

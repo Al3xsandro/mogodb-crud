@@ -1,6 +1,6 @@
 interface ICreateCheckoutDTO {
     customer_id: string,
-    price_id: string,
+    product_id: string,
     quantity: number
 };
 
