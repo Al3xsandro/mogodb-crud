@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { ICreateCheckoutDTO } from "../../../../../modules/products/dtos/ICreateCheckoutDTO";
 import { IProductRepository } from "../../../../../modules/products/repositories/IProductRepository";
 import { AppError } from "../../../../errors/AppError";
@@ -7,6 +7,7 @@ import { ICreateStripeProduct } from "../dtos/ICreateStripeProduct";
 
 import { IStripeGateway } from "../IStripe";
 
+@injectable()
 class StripeGateway implements IStripeGateway {
     private stripe: Stripe;
 
@@ -51,7 +52,7 @@ class StripeGateway implements IStripeGateway {
     };
 
     async checkout({ customer_id, product_id, quantity }: ICreateCheckoutDTO): Promise<Stripe.Checkout.Session> {
-        const product = await this.productRepository.findById(product_id);
+        const product = await this.productRepository.findByStripeProductId(product_id);
 
         if(!product?.stripe_price_id) {
             throw new AppError('Product id does not exists');
@@ -73,9 +74,7 @@ class StripeGateway implements IStripeGateway {
         return checkout;
     };
 
-    async webhook(): Promise<void> {
-        
-    };
+    async webhook(): Promise<void> {};
 };
 
 export { StripeGateway };

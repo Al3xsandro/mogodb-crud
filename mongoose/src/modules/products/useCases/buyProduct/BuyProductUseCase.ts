@@ -10,10 +10,10 @@ class BuyProductUseCase {
         private stripeProvider: IStripeGateway,
     ) {}
 
-    async execute({ customer_id, price_id, quantity }: ICreateCheckoutDTO): Promise<{ checkout_url: string }> {
+    async execute({ customer_id, product_id, quantity }: ICreateCheckoutDTO): Promise<{ checkout_url: string }> {
         const createCheckout = await this.stripeProvider.checkout({
             customer_id,
-            price_id,
+            product_id,
             quantity
         });
 

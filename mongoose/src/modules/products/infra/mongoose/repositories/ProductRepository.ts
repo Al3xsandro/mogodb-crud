@@ -61,6 +61,14 @@ class ProductRepository implements IProductRepository {
 
         return products;
     }
+
+    async findByStripeProductId(stripe_product_id: string): Promise<IProductDocument | null> {
+        const product = await this.repository.findOne({
+            stripe_product_id
+        });
+
+        return product;
+    };
 };
 
 export { ProductRepository };
